@@ -1,11 +1,9 @@
 /// <reference types="vite/client" />
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      CLIENT_ID: string;
-      CLIENT_SECRET: string;
-    }
-  }
+interface ImportMetaEnv {
+  readonly VITE_CLIENT_ID: string;
+  readonly VITE_CLIENT_SECRET: string;
 }
 
-export {};
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

@@ -1,8 +1,5 @@
-import * as dotenv from "dotenv";
-dotenv.config();
-
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
+const clientId = import.meta.env.VITE_CLIENT_ID;
+const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 const redirectUri = "http://localhost:5173";
 
 const authEndpoint = "https://accounts.spotify.com/authorize";

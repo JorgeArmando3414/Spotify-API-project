@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Listado from "./Listado";
-import Paginacion from "./Paginacion";
 import { getProfileInfo, getTopTracks, getTopArtists } from "./spotifyAPI";
 
 const VALOR_POR_PAGINA = 5;
@@ -94,7 +93,7 @@ const Profile: React.FC<{
 
   return (
     <>
-      <div className="bg-amber-200 min-h-[100vh] min-w-[99vw] flex flex-col pt-10 gap-16 px-12">
+      <div className="bg-amber-200 min-h-[100vh] max-h-fit min-w-[99vw] flex flex-col pt-10 gap-16 px-12">
         <div className="flex flex-row justify-between w-full items-center">
           <h2 className="font-bold text-black text-3xl">Spotify API Project</h2>
           <header className="bg-transparent text-black rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center absolute top-6 left-[50%] -translate-x-[50%]">
@@ -117,29 +116,14 @@ const Profile: React.FC<{
             Logout
           </button>
         </div>
-        <div className="flex flex-row justify-center h-[70vh]">
-          <div className="flex flex-col w-[65%] max-h-full justify-between">
-            <div className="max-h-fit overflow-hidden">
-              <Listado
-                listaCompleta={topTracks}
-                lista={paginatedTracks}
-                actual={actualTracks}
-                setBusqueda={setBusquedaTracks}
-              />
-            </div>
-            <div className="max-h-[10%]">
-              <Paginacion
-                actual={actualTracks}
-                total={totalTracks}
-                siguiente={() =>
-                  handlePageChange(setActualTracks, actualTracks + 1)
-                }
-                anterior={() =>
-                  handlePageChange(setActualTracks, actualTracks - 1)
-                }
-                onSelectPage={(page) => handlePageChange(setActualTracks, page)}
-              />
-            </div>
+        <div className="flex flex-row justify-center">
+          <div className="flex flex-col w-[65%] max-h-fit justify-between">
+            <Listado
+              listaCompleta={topTracks}
+              lista={paginatedTracks}
+              actual={actualTracks}
+              setBusqueda={setBusquedaTracks}
+            />
           </div>
         </div>
         <div className="flex flex-row justify-center h-[70vh]">
@@ -150,21 +134,6 @@ const Profile: React.FC<{
                 lista={paginatedArtists}
                 actual={actualArtists}
                 setBusqueda={setBusquedaArtists}
-              />
-            </div>
-            <div className="max-h-[10%]">
-              <Paginacion
-                actual={actualArtists}
-                total={totalArtists}
-                siguiente={() =>
-                  handlePageChange(setActualArtists, actualArtists + 1)
-                }
-                anterior={() =>
-                  handlePageChange(setActualArtists, actualArtists - 1)
-                }
-                onSelectPage={(page) =>
-                  handlePageChange(setActualArtists, page)
-                }
               />
             </div>
           </div>
