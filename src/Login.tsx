@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center h-[100vh] w-[100vw] text-center bg-amber-200 gap-24">
+    <main className="flex flex-col justify-center items-center h-[100vh] w-[100vw] text-center bg-amber-200 gap-24 font-rubik">
       <h1 className="font-bold font-rubik text-black/90">
         Spotify API Project
       </h1>

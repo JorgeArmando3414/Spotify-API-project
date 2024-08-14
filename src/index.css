@@ -47,15 +47,16 @@ button {
   padding: 0.6em 1.2em;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.container-grid {
+  display: grid;
+  gap: 3rem;
+  grid-auto-rows: 12rem;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+}
+
+.artists-grid {
+  display: grid;
+  gap: 3rem;
+  grid-auto-rows: 21rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }

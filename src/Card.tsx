@@ -1,26 +1,26 @@
 import React from "react";
 
 const Card: React.FC<{
-  index: number;
+  key: number;
   nombre: string;
   imagen: string;
   artista: string;
-}> = ({ index, nombre, imagen, artista }) => {
+}> = ({ key, nombre, imagen, artista }) => {
   return (
     <div
-      className="flex flex-row bg-black rounded-lg w-[22rem] text-ellipsis"
-      key={index}
+      className="flex flex-row bg-black rounded-lg h-auto text-ellipsis drop-shadow-2xl shadow-black transition hover:scale-110"
+      key={key}
     >
-      <div className="h-full w-[40%]">
+      <div className="w-[50%]">
         <img
-          className="rounded-lg h-full rounded-e-none"
+          className="rounded-lg rounded-e-none w-full h-full object-cover"
           src={imagen}
           alt="album"
         />
       </div>
       <div className="flex flex-col gap-4 justify-between py-1 px-4 w-[50%]">
-        <h3 className="text-xl text-ellipsis h-[50%] text-wrap">{nombre}</h3>
-        <h4 className="truncate text-gray-400 h-[20%] text-sm">{artista}</h4>
+        <h3 className="text-xl line-clamp-3">{nombre}</h3>
+        <h4 className="truncate text-gray-400 text-sm">{artista}</h4>
       </div>
     </div>
   );

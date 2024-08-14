@@ -1,48 +1,30 @@
 import React, { useEffect, useState } from "react";
-import Listado from "./Listado";
-import { getProfileInfo, getTopTracks, getTopArtists } from "./spotifyAPI";
-
-const VALOR_POR_PAGINA = 5;
+import Card from "./Card";
+import Circle from "./Circle";
+import {
+  getProfileInfo,
+  getTopTracksLT,
+  getTopTracksMT,
+  getTopTracksST,
+  getTopArtistsLT,
+  getTopArtistsMT,
+  getTopArtistsST,
+} from "./spotifyAPI";
 
 const Profile: React.FC<{
   token: string;
 }> = ({ token }) => {
   const [profileInfo, setProfileInfo] = useState<any>(null);
-
   const [topTracks, setTopTracks] = useState<any[]>([]);
   const [topArtists, setTopArtists] = useState<any[]>([]);
 
-  const [busquedaTracks, setBusquedaTracks] = useState<string>("");
-  const [busquedaArtists, setBusquedaArtists] = useState<string>("");
+  const [topArtistLT, setTopArtistsLT] = useState<any[]>([]);
+  const [topArtistMT, setTopArtistsMT] = useState<any[]>([]);
+  const [topArtistST, setTopArtistsST] = useState<any[]>([]);
 
-  const filteredTracks = topTracks.filter((track) =>
-    track.name.toLowerCase().includes(busquedaTracks.toLowerCase())
-  );
-  const filteredArtists = topArtists.filter((artist) =>
-    artist.name.toLowerCase().includes(busquedaArtists.toLowerCase())
-  );
-
-  const [actualTracks, setActualTracks] = useState<number>(1);
-  const [actualArtists, setActualArtists] = useState<number>(1);
-
-  const totalTracks = Math.ceil(filteredTracks.length / VALOR_POR_PAGINA);
-  const totalArtists = Math.ceil(filteredArtists.length / VALOR_POR_PAGINA);
-
-  const handlePageChange = (
-    setPage: React.Dispatch<React.SetStateAction<number>>,
-    page: number
-  ) => {
-    setPage(page);
-  };
-
-  const paginatedTracks = filteredTracks.slice(
-    (actualTracks - 1) * VALOR_POR_PAGINA,
-    actualTracks * VALOR_POR_PAGINA
-  );
-  const paginatedArtists = filteredArtists.slice(
-    (actualArtists - 1) * VALOR_POR_PAGINA,
-    actualArtists * VALOR_POR_PAGINA
-  );
+  const [topTracksLT, setTopTracksLT] = useState<any[]>([]);
+  const [topTracksMT, setTopTracksMT] = useState<any[]>([]);
+  const [topTracksST, setTopTracksST] = useState<any[]>([]);
 
   const handleLogout = () => {
     const url = "https://www.spotify.com/logout/";
@@ -65,12 +47,22 @@ const Profile: React.FC<{
       const profileData = await getProfileInfo(token);
       setProfileInfo(profileData);
 
-      const tracksData = await getTopTracks(token);
-      setTopTracks(tracksData.items);
+      const tracksDataLT = await getTopTracksLT(token);
+      const tracksDataMT = await getTopTracksMT(token);
+      const tracksDataST = await getTopTracksST(token);
+      setTopTracksLT(tracksDataLT.items);
+      setTopTracksMT(tracksDataMT.items);
+      setTopTracksST(tracksDataST.items);
+      setTopTracks(tracksDataMT.items);
 
       try {
-        const topArtistsData = await getTopArtists(token);
-        setTopArtists(topArtistsData.items);
+        const topArtistsDataLT = await getTopArtistsLT(token);
+        const topArtistsDataMT = await getTopArtistsMT(token);
+        const topArtistsDataST = await getTopArtistsST(token);
+        setTopArtistsLT(topArtistsDataLT.items);
+        setTopArtistsMT(topArtistsDataMT.items);
+        setTopArtistsST(topArtistsDataST.items);
+        setTopArtists(topArtistsDataMT.items);
       } catch (error) {
         console.log(error);
       }
@@ -79,21 +71,41 @@ const Profile: React.FC<{
     fetchData();
   }, [token]);
 
-  useEffect(() => {
-    setActualTracks(1);
-  }, [busquedaTracks]);
+  const artisthandler = (time: string) => {
+    switch (time) {
+      case "ST":
+        setTopArtists(topArtistST);
+        break;
+      case "MT":
+        setTopArtists(topArtistMT);
+        break;
+      case "LT":
+        setTopArtists(topArtistLT);
+        break;
+    }
+  };
 
-  useEffect(() => {
-    setActualArtists(1);
-  }, [busquedaArtists]);
+  const trackhandler = (time: string) => {
+    switch (time) {
+      case "ST":
+        setTopTracks(topTracksST);
+        break;
+      case "MT":
+        setTopTracks(topTracksMT);
+        break;
+      case "LT":
+        setTopTracks(topTracksLT);
+        break;
+    }
+  };
 
-  if (!profileInfo || !topArtists[0] || !topTracks[0].name) {
+  if (!profileInfo || !topArtists[0] || !topTracks[0]) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      <div className="bg-amber-200 min-h-[100vh] max-h-fit min-w-[99vw] flex flex-col pt-10 gap-16 px-12">
+      <div className="bg-amber-200 min-h-[100vh] max-h-fit min-w-[99vw] flex flex-col pt-10 gap-16 px-12 font-rubik">
         <div className="flex flex-row justify-between w-full items-center">
           <h2 className="font-bold text-black text-3xl">Spotify API Project</h2>
           <header className="bg-transparent text-black rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center absolute top-6 left-[50%] -translate-x-[50%]">
@@ -103,8 +115,10 @@ const Profile: React.FC<{
               alt="foto de perfil"
             />
             <div className="flex flex-col gap-2">
-              <p className="font-bold text-xl">{profileInfo.display_name}</p>
-              <p className="font-bold [&_strong]:text-red-600">
+              <p className="font-semibold text-xl">
+                {profileInfo.display_name}
+              </p>
+              <p className=" [&_strong]:text-red-600">
                 <strong>{profileInfo.followers.total}</strong> Followers
               </p>
             </div>
@@ -116,28 +130,45 @@ const Profile: React.FC<{
             Logout
           </button>
         </div>
-        <div className="flex flex-row justify-center">
-          <div className="flex flex-col w-[65%] max-h-fit justify-between">
-            <Listado
-              listaCompleta={topTracks}
-              lista={paginatedTracks}
-              actual={actualTracks}
-              setBusqueda={setBusquedaTracks}
-            />
-          </div>
-        </div>
-        <div className="flex flex-row justify-center h-[70vh]">
-          <div className="flex flex-col w-[65%] max-h-full justify-between">
-            <div className="max-h-fit overflow-hidden">
-              <Listado
-                listaCompleta={topArtists}
-                lista={paginatedArtists}
-                actual={actualArtists}
-                setBusqueda={setBusquedaArtists}
+        <section className="flex flex-col text-center">
+          <h2 className="my-24 text-4xl text-black font-bold">
+            Top 10 Artists
+          </h2>
+          <nav className="w-full flex flex-row justify-center gap-12">
+            <button onClick={() => artisthandler("ST")}>Last 4 weeks</button>
+            <button onClick={() => artisthandler("MT")}>Last 6 Months</button>
+            <button onClick={() => artisthandler("LT")}>Last Year</button>
+          </nav>
+          <div className="md:px-16 grid artists-grid">
+            {topArtists.map((artist, ind) => (
+              <Circle
+                index={ind}
+                nombre={artist.name}
+                imagen={artist.images[0].url}
               />
-            </div>
+            ))}
           </div>
-        </div>
+        </section>
+        <section className="flex flex-col text-center">
+          <h2 className="my-24 text-4xl text-black font-bold">
+            Top 20 Songs 😎
+          </h2>
+          <nav className="w-full flex flex-row justify-center gap-12">
+            <button onClick={() => trackhandler("ST")}>Last 4 weeks</button>
+            <button onClick={() => trackhandler("MT")}>Last 6 Months</button>
+            <button onClick={() => trackhandler("LT")}>Last Year</button>
+          </nav>
+          <div className="h-fit container-grid px-16">
+            {topTracks.map((track, index) => (
+              <Card
+                key={index}
+                nombre={track.name}
+                imagen={track.album.images[0].url}
+                artista={track.artists[0].name}
+              />
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

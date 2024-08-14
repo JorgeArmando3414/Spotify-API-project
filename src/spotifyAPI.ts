@@ -11,29 +11,74 @@ export const getProfileInfo = async (token: string) => {
   return response.data;
 };
 
-export const getTopTracks = async (token: string) => {
-  const response = await axios.get(`${baseUrl}/me/top/tracks`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getTopTracksLT = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/tracks?time_range=long_term`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 };
 
-export const getFollowedArtists = async (token: string) => {
-  const response = await axios.get(`${baseUrl}/me/following?type=artist`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getTopTracksMT = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/tracks?time_range=medium_term`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 };
 
-export const getTopArtists = async (token: string) => {
-  const response = await axios.get(`${baseUrl}/me/top/artists`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getTopTracksST = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/tracks?time_range=short_term`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getTopArtistsLT = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/artists?time_range=long_term&limit=10`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getTopArtistsMT = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/artists?time_range=medium_term&limit=10`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getTopArtistsST = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/artists?time_range=short_term&limit=10`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 };
