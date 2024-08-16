@@ -26,6 +26,10 @@ const Profile: React.FC<{
   const [topTracksMT, setTopTracksMT] = useState<any[]>([]);
   const [topTracksST, setTopTracksST] = useState<any[]>([]);
 
+  const [topGenres, setTopGenres] = useState<
+    { genre: string; percentage: number }[]
+  >([]);
+
   const handleLogout = () => {
     const url = "https://www.spotify.com/logout/";
     const logout = window.open(
@@ -55,17 +59,43 @@ const Profile: React.FC<{
       setTopTracksST(tracksDataST.items);
       setTopTracks(tracksDataMT.items);
 
-      try {
-        const topArtistsDataLT = await getTopArtistsLT(token);
-        const topArtistsDataMT = await getTopArtistsMT(token);
-        const topArtistsDataST = await getTopArtistsST(token);
-        setTopArtistsLT(topArtistsDataLT.items);
-        setTopArtistsMT(topArtistsDataMT.items);
-        setTopArtistsST(topArtistsDataST.items);
-        setTopArtists(topArtistsDataMT.items);
-      } catch (error) {
-        console.log(error);
-      }
+      const topArtistsDataLT = await getTopArtistsLT(token);
+      const topArtistsDataMT = await getTopArtistsMT(token);
+      const topArtistsDataST = await getTopArtistsST(token);
+      setTopArtistsLT(topArtistsDataLT.items);
+      setTopArtistsMT(topArtistsDataMT.items);
+      setTopArtistsST(topArtistsDataST.items);
+      setTopArtists(topArtistsDataMT.items);
+
+      const genres: string[] = [];
+      topArtistsDataMT.items.map((artist: any) => {
+        artist.genres.map((genre: string) => {
+          genres.push(genre);
+        });
+      });
+
+      // Calculate the frequency of each genre
+      const genreCount: { [key: string]: number } = {};
+      genres.forEach((genre) => {
+        genreCount[genre] = (genreCount[genre] || 0) + 1;
+      });
+
+      // Calculate the percentage for each genre
+      const totalGenresCount = genres.length;
+      const genrePercentages = Object.keys(genreCount).map((genre) => {
+        return {
+          genre,
+          percentage: (genreCount[genre] / totalGenresCount) * 100,
+        };
+      });
+
+      const sortedGenres = genrePercentages.sort(
+        (a, b) => b.percentage - a.percentage
+      );
+
+      // Get the top 10 genres
+      const top10Genres = sortedGenres.slice(0, 10);
+      setTopGenres(top10Genres);
     };
 
     fetchData();
