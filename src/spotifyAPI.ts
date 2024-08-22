@@ -82,3 +82,15 @@ export const getTopArtistsST = async (token: string) => {
   );
   return response.data;
 };
+
+export const getTopArtistsMTGenres = async (token: string) => {
+  const response = await axios.get(
+    `${baseUrl}/me/top/artists?time_range=medium_term&limit=50`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};

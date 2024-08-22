@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Circle from "./Circle";
+import Graph from "./Graph";
 import {
   getProfileInfo,
   getTopTracksLT,
@@ -9,6 +10,7 @@ import {
   getTopArtistsLT,
   getTopArtistsMT,
   getTopArtistsST,
+  getTopArtistsMTGenres,
 } from "./spotifyAPI";
 
 const Profile: React.FC<{
@@ -62,13 +64,14 @@ const Profile: React.FC<{
       const topArtistsDataLT = await getTopArtistsLT(token);
       const topArtistsDataMT = await getTopArtistsMT(token);
       const topArtistsDataST = await getTopArtistsST(token);
+      const topArtistsDataMTGenres = await getTopArtistsMTGenres(token);
       setTopArtistsLT(topArtistsDataLT.items);
       setTopArtistsMT(topArtistsDataMT.items);
       setTopArtistsST(topArtistsDataST.items);
       setTopArtists(topArtistsDataMT.items);
 
       const genres: string[] = [];
-      topArtistsDataMT.items.map((artist: any) => {
+      topArtistsDataMTGenres.items.map((artist: any) => {
         artist.genres.map((genre: string) => {
           genres.push(genre);
         });
@@ -135,10 +138,10 @@ const Profile: React.FC<{
 
   return (
     <>
-      <div className="bg-amber-200 min-h-[100vh] max-h-fit min-w-[99vw] flex flex-col pt-10 gap-16 px-12 font-rubik">
-        <div className="flex flex-row justify-between w-full items-center">
-          <h2 className="font-bold text-black text-3xl">Spotify API Project</h2>
-          <header className="bg-transparent text-black rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center absolute top-6 left-[50%] -translate-x-[50%]">
+      <div className="bg-black min-h-[100vh] max-h-fit w-[100%] flex flex-col pt-10 gap-0 px-0 font-rubik justify-center">
+        <div className="flex flex-row justify-between w-full items-center pb-16 px-16">
+          <h2 className="font-bold text-white text-3xl">Spotify API Project</h2>
+          <header className="bg-transparent text-white rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center absolute top-6 left-[50%] -translate-x-[50%]">
             <img
               className="w-auto rounded-full"
               src={profileInfo.images[0].url}
@@ -160,14 +163,29 @@ const Profile: React.FC<{
             Logout
           </button>
         </div>
-        <section className="flex flex-col text-center">
-          <h2 className="my-24 text-4xl text-black font-bold">
-            Top 10 Artists
+        <section className="flex flex-col text-center bg-amber-300 py-48">
+          <h2 className="mb-24 text-5xl text-[#333333] font-bold">
+            Your Top Artists
           </h2>
-          <nav className="w-full flex flex-row justify-center gap-12">
-            <button onClick={() => artisthandler("ST")}>Last 4 weeks</button>
-            <button onClick={() => artisthandler("MT")}>Last 6 Months</button>
-            <button onClick={() => artisthandler("LT")}>Last Year</button>
+          <nav className="w-full flex flex-row justify-center gap-12 pb-24 font-bold text-[#333333]">
+            <button
+              className="hover:text-black  text-xl transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
+              onClick={() => artisthandler("ST")}
+            >
+              <p>Last 4 weeks</p>
+            </button>
+            <button
+              className="hover:text-black  text-xl transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
+              onClick={() => artisthandler("MT")}
+            >
+              Last 6 Months
+            </button>
+            <button
+              className="hover:text-black text-xl transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
+              onClick={() => artisthandler("LT")}
+            >
+              Last Year
+            </button>
           </nav>
           <div className="md:px-16 grid artists-grid">
             {topArtists.map((artist, ind) => (
@@ -179,14 +197,29 @@ const Profile: React.FC<{
             ))}
           </div>
         </section>
-        <section className="flex flex-col text-center">
-          <h2 className="my-24 text-4xl text-black font-bold">
-            Top 20 Songs 😎
+        <section className="flex flex-col text-center bg-red-600 py-48">
+          <h2 className="mb-24 text-5xl text-[#C2C8D0] font-bold">
+            Your Top Songs
           </h2>
-          <nav className="w-full flex flex-row justify-center gap-12">
-            <button onClick={() => trackhandler("ST")}>Last 4 weeks</button>
-            <button onClick={() => trackhandler("MT")}>Last 6 Months</button>
-            <button onClick={() => trackhandler("LT")}>Last Year</button>
+          <nav className="w-full flex flex-row justify-center gap-12 pb-24 text-xl">
+            <button
+              className="hover:text-white transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
+              onClick={() => trackhandler("ST")}
+            >
+              Last 4 weeks
+            </button>
+            <button
+              className="hover:text-white transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
+              onClick={() => trackhandler("MT")}
+            >
+              Last 6 Months
+            </button>
+            <button
+              className="hover:text-white transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
+              onClick={() => trackhandler("LT")}
+            >
+              Last Year
+            </button>
           </nav>
           <div className="h-fit container-grid px-16">
             {topTracks.map((track, index) => (
@@ -197,6 +230,14 @@ const Profile: React.FC<{
                 artista={track.artists[0].name}
               />
             ))}
+          </div>
+        </section>
+        <section className="w-full flex flex-col items-center bg-[#48ACF0] py-48">
+          <h2 className="mb-24 text-5xl text-[#333333] font-bold">
+            Your Top Genres
+          </h2>
+          <div className="w-full md:w-[80%] flex justify-center">
+            <Graph genres={topGenres} />
           </div>
         </section>
       </div>
