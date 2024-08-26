@@ -8,7 +8,7 @@ const Card: React.FC<{
 }> = ({ key, nombre, imagen, artista }) => {
   return (
     <div
-      className="flex flex-row bg-black rounded-lg h-auto text-ellipsis drop-shadow-2xl shadow-black transition hover:scale-110"
+      className="flex flex-row bg-black rounded-lg h-auto text-ellipsis drop-shadow-2xl shadow-black transition md:hover:scale-110"
       key={key}
     >
       <div className="w-[50%]">

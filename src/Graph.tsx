@@ -49,7 +49,7 @@ const Graph: React.FC<{
   };
 
   const options = {
-    indexAxis: "y" as const,
+    indexAxis: "x" as const,
     scales: {
       y: {
         ticks: {
@@ -80,7 +80,7 @@ const Graph: React.FC<{
               label += ": ";
             }
             if (context.parsed.x !== null) {
-              label += context.parsed.x.toFixed(2) + " %";
+              label += context.parsed.y.toFixed(2) + " %";
             }
             return label;
           },

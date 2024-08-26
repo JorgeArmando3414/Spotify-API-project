@@ -9,7 +9,7 @@ const Circle: React.FC<{
     <div key={index} className="flex flex-col items-center gap-4 text-black">
       <div className="h-[70%]">
         <img
-          className="rounded-full h-full aspect-square transition hover:scale-105"
+          className="rounded-full h-full aspect-square transition hover:scale-105 drop-shadow-lg"
           src={imagen}
           alt={nombre}
         />

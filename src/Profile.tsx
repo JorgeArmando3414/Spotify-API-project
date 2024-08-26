@@ -139,9 +139,11 @@ const Profile: React.FC<{
   return (
     <>
       <div className="bg-black min-h-[100vh] max-h-fit w-[100%] flex flex-col pt-10 gap-0 px-0 font-rubik justify-center">
-        <div className="flex flex-row justify-between w-full items-center pb-16 px-16">
-          <h2 className="font-bold text-white text-3xl">Spotify API Project</h2>
-          <header className="bg-transparent text-white rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center absolute top-6 left-[50%] -translate-x-[50%]">
+        <div className="flex flex-col md:flex-row justify-between w-full items-center pb-16 px-16 text-center gap-7 md:gap-0">
+          <h2 className="font-bold text-[#cacaca] text-3xl">
+            Spotify API Project
+          </h2>
+          <header className="bg-transparent text-white rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center md:absolute md:top-6 md:left-[50%] md:-translate-x-[50%]">
             <img
               className="w-auto rounded-full"
               src={profileInfo.images[0].url}
@@ -157,31 +159,31 @@ const Profile: React.FC<{
             </div>
           </header>
           <button
-            className="bg-white text-black font-bold rounded-md h-fit"
+            className="bg-white text-black/80 font-bold rounded-md h-fit hover:bg-gray-300"
             onClick={() => handleLogout()}
           >
             Logout
           </button>
         </div>
-        <section className="flex flex-col text-center bg-amber-300 py-48">
-          <h2 className="mb-24 text-5xl text-[#333333] font-bold">
+        <section className="flex flex-col text-center bg-amber-300 py-32 md:py-48">
+          <h2 className="mb-24 text-4xl md:text-5xl text-[#333333] font-bold">
             Your Top Artists
           </h2>
-          <nav className="w-full flex flex-row justify-center gap-12 pb-24 font-bold text-[#333333]">
+          <nav className="w-full flex flex-row justify-center gap-6 md:gap-12 pb-24 font-bold text-[#333333] text-md md:text-xl">
             <button
-              className="hover:text-black  text-xl transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
+              className="hover:text-black p-0  transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
               onClick={() => artisthandler("ST")}
             >
               <p>Last 4 weeks</p>
             </button>
             <button
-              className="hover:text-black  text-xl transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
+              className="hover:text-black p-0  transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
               onClick={() => artisthandler("MT")}
             >
               Last 6 Months
             </button>
             <button
-              className="hover:text-black text-xl transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
+              className="hover:text-black p-0  transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-black  before:absolute before:left-0 before:bottom-[-4px]"
               onClick={() => artisthandler("LT")}
             >
               Last Year
@@ -197,31 +199,31 @@ const Profile: React.FC<{
             ))}
           </div>
         </section>
-        <section className="flex flex-col text-center bg-red-600 py-48">
-          <h2 className="mb-24 text-5xl text-[#C2C8D0] font-bold">
+        <section className="flex flex-col text-center bg-red-600 py-32 md:py-48">
+          <h2 className="mb-24 text-4xl md:text-5xl text-[#C2C8D0] font-bold">
             Your Top Songs
           </h2>
-          <nav className="w-full flex flex-row justify-center gap-12 pb-24 text-xl">
+          <nav className="w-full flex flex-row justify-center gap-7 md:gap-12 pb-24 text-md md:text-xl">
             <button
-              className="hover:text-white transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
+              className="hover:text-white p-0 transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
               onClick={() => trackhandler("ST")}
             >
               Last 4 weeks
             </button>
             <button
-              className="hover:text-white transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
+              className="hover:text-white p-0 transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
               onClick={() => trackhandler("MT")}
             >
               Last 6 Months
             </button>
             <button
-              className="hover:text-white transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
+              className="hover:text-white p-0 transition hover:before:scale-x-100 hover:before:origin-center relative before:rounded-full before:w-full before:h-1 before:origin-center before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#C2C8D0]  before:absolute before:left-0 before:bottom-[-4px]"
               onClick={() => trackhandler("LT")}
             >
               Last Year
             </button>
           </nav>
-          <div className="h-fit container-grid px-16">
+          <div className="h-fit container-grid md:px-16 items-center justify-center">
             {topTracks.map((track, index) => (
               <Card
                 key={index}
@@ -232,12 +234,22 @@ const Profile: React.FC<{
             ))}
           </div>
         </section>
-        <section className="w-full flex flex-col items-center bg-[#48ACF0] py-48">
-          <h2 className="mb-24 text-5xl text-[#333333] font-bold">
+        <section className="w-full flex flex-col items-center bg-[#48ACF0] py-32 md:py-48">
+          <h2 className="mb-24 text-4xl md:text-5xl text-[#333333] font-bold">
             Your Top Genres
           </h2>
-          <div className="w-full md:w-[80%] flex justify-center">
-            <Graph genres={topGenres} />
+          <div className="w-full md:w-[80%] items-center justify-center gap-4 text-2xl genre-grid">
+            {/* <Graph genres={topGenres} /> */}
+            {topGenres.map((genre, index) => (
+              <div
+                key={index}
+                className="bg-[#222327] text-[#e7e6e6] rounded-md px-6 text-left h-full flex items-center"
+              >
+                <p>
+                  {index + 1} - {genre.genre}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
       </div>
