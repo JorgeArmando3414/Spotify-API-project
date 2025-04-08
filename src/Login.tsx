@@ -2,8 +2,9 @@ import React from "react";
 import { getAuthUrl } from "./spotify";
 
 const Login: React.FC = () => {
-  const handleLogin = () => {
-    window.location.href = getAuthUrl();
+  const handleLogin = async () => {
+    const url = await getAuthUrl();
+    window.location.href = url;
   };
 
   return (

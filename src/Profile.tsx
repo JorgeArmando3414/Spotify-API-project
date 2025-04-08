@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Circle from "./Circle";
-import Graph from "./Graph";
 import {
   getProfileInfo,
   getTopTracksLT,
@@ -143,9 +142,9 @@ const Profile: React.FC<{
           <h2 className="font-bold text-[#cacaca] text-3xl">
             Spotify API Project
           </h2>
-          <header className="bg-transparent text-white rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center md:absolute md:top-6 md:left-[50%] md:-translate-x-[50%]">
+          <header className="bg-transparent text-white rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center md:absolute md:top-3 md:left-[50%] md:-translate-x-[50%]">
             <img
-              className="w-auto rounded-full"
+              className="w-auto max-w-28 rounded-full"
               src={profileInfo.images[0].url}
               alt="foto de perfil"
             />
@@ -195,6 +194,7 @@ const Profile: React.FC<{
                 index={ind}
                 nombre={artist.name}
                 imagen={artist.images[0].url}
+                url={artist.external_urls.spotify}
               />
             ))}
           </div>
@@ -223,7 +223,7 @@ const Profile: React.FC<{
               Last Year
             </button>
           </nav>
-          <div className="h-fit container-grid md:px-16 items-center justify-center">
+          <div className="h-fit container-grid md:px-16 items-center justify-center px-3">
             {topTracks.map((track, index) => (
               <Card
                 key={index}
@@ -243,7 +243,7 @@ const Profile: React.FC<{
             {topGenres.map((genre, index) => (
               <div
                 key={index}
-                className="bg-[#222327] text-[#e7e6e6] rounded-md px-6 text-left h-full flex items-center"
+                className="bg-[#0e0e0f] text-[#e7e6e6] rounded-md px-6 text-left h-full flex items-center transition duration-150 hover:skew-x-6 shadow-lg hover:shadow-red-500/50 "
               >
                 <p>
                   {index + 1} - {genre.genre}

@@ -77,3 +77,19 @@ button {
   grid-auto-rows: 21rem;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }
+
+@keyframes stretch {
+  0% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.link-animate {
+  animation: stretch 2s infinite ease-in-out;
+}
