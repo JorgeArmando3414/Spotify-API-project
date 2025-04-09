@@ -93,3 +93,16 @@ button {
 .link-animate {
   animation: stretch 2s infinite ease-in-out;
 }
+
+@keyframes moveRight {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.animate-rowMovement {
+  animation: moveRight 15s linear infinite;
+}

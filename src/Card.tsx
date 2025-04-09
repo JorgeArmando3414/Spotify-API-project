@@ -18,7 +18,7 @@ const Card: React.FC<{
           alt="album"
         />
       </div>
-      <div className="flex flex-col gap-4 justify-between py-1 px-4 w-full w-[50%]">
+      <div className="flex flex-col gap-4 justify-between py-1 px-4 w-[50%]">
         <h3 className="text-xl line-clamp-3">{nombre}</h3>
         <h4 className="truncate text-gray-400 text-sm">{artista}</h4>
       </div>

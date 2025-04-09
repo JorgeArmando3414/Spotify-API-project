@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Circle from "./Circle";
+import Load from "./Load";
 import {
   getProfileInfo,
   getTopTracksLT,
@@ -132,16 +133,14 @@ const Profile: React.FC<{
   };
 
   if (!profileInfo || !topArtists[0] || !topTracks[0]) {
-    return <div>Loading...</div>;
+    return <Load />;
   }
 
   return (
     <>
       <div className="bg-black min-h-[100vh] max-h-fit w-[100%] flex flex-col pt-10 gap-0 px-0 font-rubik justify-center">
         <div className="flex flex-col md:flex-row justify-between w-full items-center pb-16 px-16 text-center gap-7 md:gap-0">
-          <h2 className="font-bold text-[#cacaca] text-3xl">
-            Spotify API Project
-          </h2>
+          <h2 className="font-bold text-[#fdfdfd] text-3xl">TrackFlow</h2>
           <header className="bg-transparent text-white rounded-full flex flex-row w-fit gap-8 p-2 pr-6 items-center md:absolute md:top-3 md:left-[50%] md:-translate-x-[50%]">
             <img
               className="w-auto max-w-28 rounded-full"
@@ -164,7 +163,7 @@ const Profile: React.FC<{
             Logout
           </button>
         </div>
-        <section className="flex flex-col text-center bg-amber-300 py-32 md:py-48">
+        <section className="flex flex-col text-center bg-amber-200 py-32 md:py-48">
           <h2 className="mb-24 text-4xl md:text-5xl text-[#333333] font-bold">
             Your Top Artists
           </h2>
