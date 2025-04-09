@@ -1,5 +1,5 @@
 const clientId = "8e69d6069d0547b2a141f306f0b17268";
-const redirectUri = "http://trackflow.netlify.app";
+const redirectUri = "https://trackflow.netlify.app";
 
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const tokenEndpoint = "https://accounts.spotify.com/api/token";
