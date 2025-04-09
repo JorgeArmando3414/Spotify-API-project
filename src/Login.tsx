@@ -11,7 +11,7 @@ const Login: React.FC = () => {
   return (
     <main
       className="relative flex flex-col justify-center items-center h-[100vh] w-[100vw] text-center bg-amber-200 gap-24 font-rubik
-     bg-[url(./assets/music.svg)] bg-repeat bg-center bg-[length:85px_100px] bg-blend-overlay animate-rowMovement"
+     bg-[url(/music.svg)] bg-repeat bg-center bg-[length:85px_100px] bg-blend-overlay animate-rowMovement"
     >
       <h1 className="font-bold font-rubik text-black/90">TrackFlow</h1>
       <button
